@@ -110,7 +110,7 @@ class _TodoViewState extends State<TodoView> {
               height: 20,
             ),
             RaisedButton(
-              onPressed: () => _todoController.saveData(
+              onPressed: () => _todoController.savetodoController(
                   _todoTitleController.text,
                   _todoContentController.text,
                   context),

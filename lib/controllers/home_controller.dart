@@ -8,7 +8,8 @@ class HomeController {
   List list = [];
 
   // read todos
-  Future<List<Post>> readTodos() async {
+  Future<List<Post>> getValue() async {
+    await Future.delayed(Duration(seconds: 3));
     list = [];
     final response = await http.get(urlGet);
     final responseData = json.decode(response.body);

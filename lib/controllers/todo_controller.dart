@@ -7,7 +7,7 @@ class TodoController {
   final String urlPost = 'https://adc-nodejs-api.herokuapp.com/create_posts/';
   Post _retTodo;
   //camada de negocio
-  saveData(String title, String content, dynamic context) async {
+  savetodoController(String title, String content, dynamic context) async {
     Post todoObject = Post();
 
     todoObject.title = title;
@@ -19,11 +19,11 @@ class TodoController {
     //   _showSuccessSnackBar(Text('Created'));
     // }
 
-    saveTodo(todoObject, context);
+    saveTodoService(todoObject, context);
   }
 
   // camada de servico
-  Future<Post> saveTodo(Post post, dynamic context) async {
+  Future<Post> saveTodoService(Post post, dynamic context) async {
     try {
       final response =
           await http.post(await urlPost + post.title + post.content);
