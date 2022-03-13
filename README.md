@@ -20,13 +20,16 @@ Você deve enviar o código fonte do seu app.
 ## Detalhes da Api
 
 Api foi construida na linguagem nodejs e esta hospedada via Heroku.
+
 [GET] 
-```https://adc-nodejs-api.herokuapp.com/list_posts```
+```
+https://adc-nodejs-api.herokuapp.com/list_posts
+```
    
 [POST] 
-    ```
+```
 https://adc-nodejs-api.herokuapp.com/create_posts
-    ```
+```
 
 ## Aluno/Desenvolvedor
 
