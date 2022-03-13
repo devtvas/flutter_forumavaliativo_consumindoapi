@@ -110,8 +110,10 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => TodoView())),
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => new TodoView())),
           child: Icon(Icons.add),
         ),
       ),
