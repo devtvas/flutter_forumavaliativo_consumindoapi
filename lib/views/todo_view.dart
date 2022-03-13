@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_forumavaliativo_consumindoapi/models/todolist_model.dart';
-import 'package:flutter_forumavaliativo_consumindoapi/services/todo_service.dart';
+import 'package:flutter_forumavaliativo_consumindoapi/controllers/todo_controller.dart';
 
-class TodoPage extends StatefulWidget {
+class TodoView extends StatefulWidget {
   @override
-  _TodoPageState createState() => _TodoPageState();
+  _TodoViewState createState() => _TodoViewState();
 }
 
-class _TodoPageState extends State<TodoPage> {
+class _TodoViewState extends State<TodoView> {
+  TodoController _todoController = TodoController();
+
   var _todoTitleController = TextEditingController();
 
   var _todoContentController = TextEditingController();
@@ -109,7 +110,10 @@ class _TodoPageState extends State<TodoPage> {
               height: 20,
             ),
             RaisedButton(
-              onPressed: () => saveData(),
+              onPressed: () => _todoController.saveData(
+                  _todoTitleController.text,
+                  _todoContentController.text,
+                  context),
               // onPressed: () {},
               color: Colors.blue,
               child: Text(
@@ -121,22 +125,5 @@ class _TodoPageState extends State<TodoPage> {
         ),
       ),
     );
-  }
-
-  //metodo postar dados!
-  saveData() async {
-    var todoObject = Post();
-
-    todoObject.title = _todoTitleController.text;
-    todoObject.content = _todoContentController.text;
-
-    var _todoService = TodoService();
-    var result = await _todoService.saveTodo(todoObject, context);
-
-    if (result == true) {
-      _showSuccessSnackBar(Text('Created'));
-    }
-
-    print(result);
   }
 }

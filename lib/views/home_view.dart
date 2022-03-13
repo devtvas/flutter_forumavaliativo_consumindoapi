@@ -1,19 +1,15 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_forumavaliativo_consumindoapi/models/todolist_model.dart';
-import 'package:flutter_forumavaliativo_consumindoapi/services/todo_service.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_forumavaliativo_consumindoapi/controllers/home_controller.dart';
 
-import 'todo_page.dart';
+import 'todo_view.dart';
 
-class HomePage extends StatefulWidget {
+class HomeView extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomePageState extends State<HomePage> {
-  var _todoService = TodoService();
+class _HomeViewState extends State<HomeView> {
+  HomeController _homeController = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           padding: EdgeInsets.all(16.0),
           child: FutureBuilder(
-            future: _todoService.readTodos(),
+            future: _homeController.readTodos(),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
@@ -55,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => TodoPage())),
+              .push(MaterialPageRoute(builder: (context) => TodoView())),
           child: Icon(Icons.add),
         ),
       ),

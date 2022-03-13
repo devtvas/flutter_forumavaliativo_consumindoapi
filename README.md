@@ -31,6 +31,12 @@ https://adc-nodejs-api.herokuapp.com/list_posts
 https://adc-nodejs-api.herokuapp.com/create_posts
 ```
 
-## Aluno/Desenvolvedor
+<h2>Detalhes da Api</h2>
 
+  * Flutter: versao 2.2.3
+  * Dart: versao 2.2.0
+  * Design Pattern: MVC
+  * Dependencias Utilizadas: http e intl
+  
+## Aluno/Desenvolvedor
 @devtvas
