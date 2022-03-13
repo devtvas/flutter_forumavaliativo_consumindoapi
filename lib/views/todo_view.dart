@@ -71,58 +71,42 @@ class _TodoViewState extends State<TodoView> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              controller: _todoTitleController,
-              decoration: InputDecoration(
-                  labelText: 'Consumidor', hintText: 'Escreva aqui seu nome'),
+        child: Card(
+          color: Colors.white60,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  controller: _todoTitleController,
+                  decoration: InputDecoration(
+                      labelText: 'Consumidor',
+                      hintText: 'Escreva aqui seu nome'),
+                ),
+                TextField(
+                  controller: _todoContentController,
+                  decoration: InputDecoration(
+                      labelText: 'Bebida',
+                      hintText: 'Nome da sua cerveja preferida'),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                RaisedButton(
+                  onPressed: () => _todoController.savetodoController(
+                      _todoTitleController.text,
+                      _todoContentController.text,
+                      context),
+                  // onPressed: () {},
+                  color: Colors.blue,
+                  child: Text(
+                    'Save',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ],
             ),
-            TextField(
-              controller: _todoContentController,
-              decoration: InputDecoration(
-                  labelText: 'Bebida',
-                  hintText: 'Nome da sua cerveja preferida'),
-            ),
-            // TextField(
-            //   controller: _todoDateController,
-            //   decoration: InputDecoration(
-            //     labelText: 'Date',
-            //     hintText: 'Pick a Date',
-            //     prefixIcon: InkWell(
-            //       onTap: () {
-            //         // _selectedTodoDate(context);
-            //       },
-            //       child: Icon(Icons.calendar_today),
-            //     ),
-            //   ),
-            // ),
-            // DropdownButtonFormField(
-            //   value: _selectedValue,
-            //   items: _categories,
-            //   hint: Text('Category'),
-            //   onChanged: (value) {
-            //     setState(() {
-            //       _selectedValue = value;
-            //     });
-            //   },
-            // ),
-            SizedBox(
-              height: 20,
-            ),
-            RaisedButton(
-              onPressed: () => _todoController.savetodoController(
-                  _todoTitleController.text,
-                  _todoContentController.text,
-                  context),
-              // onPressed: () {},
-              color: Colors.blue,
-              child: Text(
-                'Save',
-                style: TextStyle(color: Colors.white),
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );

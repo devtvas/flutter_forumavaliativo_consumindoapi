@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_forumavaliativo_consumindoapi/controllers/home_controller.dart';
 import 'package:flutter_forumavaliativo_consumindoapi/main.dart';
 import 'package:flutter_forumavaliativo_consumindoapi/models/home_model.dart';
+import 'package:intl/intl.dart';
 
 import 'todo_view.dart';
 
@@ -13,6 +14,8 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   Future<List<Post>> _value;
   // List<Post> initialData = [];
+  NumberFormat f = new NumberFormat("00");
+
   HomeController _homeController = HomeController();
 
   @override
@@ -25,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white60,
         appBar: AppBar(
           title: Text("Doing Get"),
           leading: Icon(
@@ -74,19 +78,27 @@ class _HomeViewState extends State<HomeView> {
                   return Center(child: const Text('Error'));
                 } else if (snapshot.hasData) {
                   return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (ctx, index) => Card(
-                      child: ListTile(
-                        title:
-                            Text("Consumidor: ${snapshot.data[index].title}"),
-                        // subtitle: Text(snapshot.data[index].sId),
-                        subtitle: Text(
-                            "Bebida favorita: ${snapshot.data[index].content}"),
-                        // subtitle: Text(snapshot.data[index].createdAt),
-                        contentPadding: EdgeInsets.only(bottom: 20.0),
-                      ),
-                    ),
-                  );
+                      // itemCount: snapshot.data.length,
+                      // itemBuilder: (ctx, index) =>
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (ctx, index) {
+                        String string = snapshot.data[index].title;
+                        String char = string.substring(0, 1);
+
+                        return Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              leading: CircleAvatar(child: Text(char)),
+                              title: Text(
+                                  "Consumidor: ${snapshot.data[index].title}"),
+                              subtitle: Text(
+                                  "Bebida favorita: ${snapshot.data[index].content}"),
+                              contentPadding: EdgeInsets.only(bottom: 20.0),
+                            ),
+                          ),
+                        );
+                      });
                 } else {
                   return Center(child: const Text('Empty data'));
                 }
