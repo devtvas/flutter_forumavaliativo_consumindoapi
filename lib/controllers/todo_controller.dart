@@ -6,6 +6,7 @@ import 'dart:convert';
 class TodoController {
   final String urlPost = 'https://adc-nodejs-api.herokuapp.com/create_posts/';
   Post _retTodo;
+  dynamic _retSucesso;
   //camada de negocio
   savetodoController(String title, String content, dynamic context) async {
     Post todoObject = Post();
@@ -19,18 +20,34 @@ class TodoController {
     //   _showSuccessSnackBar(Text('Created'));
     // }
 
-    saveTodoService(todoObject, context);
+    // saveTodoService(todoObject, context);
+    saveTodoService(todoObject, context).then((value) {
+      if (value == 'OK') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Salvo com sucesso!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    });
   }
 
   // camada de servico
-  Future<Post> saveTodoService(Post post, dynamic context) async {
+  Future<String> saveTodoService(Post post, dynamic context) async {
     try {
-      final response =
-          await http.post(await urlPost + post.title + post.content);
+      final response = await http.post(
+        await urlPost,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(post),
+      );
       if (response.statusCode == 200) {
-        var descodeJson = jsonDecode(response.body);
-        _retTodo = Post.fromJson(descodeJson);
-        return _retTodo;
+        // var descodeJson = jsonDecode(response.body);
+        _retSucesso = response.reasonPhrase;
+        // _retTodo = Post.fromJson(descodeJson);
+        return _retSucesso;
       } else if (response.statusCode == 404) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -45,7 +62,7 @@ class TodoController {
         ),
       );
     }
-    return _retTodo;
+    return _retSucesso;
   }
   // read todos by category
   // readTodosByCategory(category) async {

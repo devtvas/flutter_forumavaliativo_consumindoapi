@@ -76,12 +76,13 @@ class _TodoViewState extends State<TodoView> {
             TextField(
               controller: _todoTitleController,
               decoration: InputDecoration(
-                  labelText: 'Title', hintText: 'Write Todo Title'),
+                  labelText: 'Consumidor', hintText: 'Escreva aqui seu nome'),
             ),
             TextField(
               controller: _todoContentController,
               decoration: InputDecoration(
-                  labelText: 'Content', hintText: 'Write Todo Content'),
+                  labelText: 'Bebida',
+                  hintText: 'Nome da sua cerveja preferida'),
             ),
             // TextField(
             //   controller: _todoDateController,

@@ -25,4 +25,8 @@ class HomeController {
     }
     return list.cast();
   }
+
+  void iconPress() {
+    print("atualizando tela");
+  }
 }

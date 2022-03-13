@@ -18,9 +18,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   initState() {
     super.initState();
-
     _value = _homeController.getValue();
-    // _homeController.getValue();
   }
 
   @override
@@ -34,25 +32,22 @@ class _HomeViewState extends State<HomeView> {
             size: 30,
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  _homeController = new HomeController();
-                });
-              },
-              icon: Icon(
-                Icons.refresh,
-                size: 30,
-              ),
-            ),
+            // IconButton(
+            //   onPressed: () => _incrementCounter(),
+            //   icon: Icon(
+            //     Icons.refresh,
+            //     size: 30,
+            //   ),
+            // ),
           ],
         ),
         body: Container(
           padding: EdgeInsets.all(16.0),
-          child: StreamBuilder(
-            stream: _value.asStream(),
+          child: FutureBuilder(
+            future: _value,
             // initialData: initialData,
-            builder: (context, snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
               print(snapshot.connectionState);
 
               if (snapshot.connectionState == ConnectionState.waiting) {
