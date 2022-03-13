@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_forumavaliativo_consumindoapi/src/models/todolist_model.dart';
+import 'package:flutter_forumavaliativo_consumindoapi/models/todolist_model.dart';
+import 'package:flutter_forumavaliativo_consumindoapi/services/todo_service.dart';
 
-class TodoScreen extends StatefulWidget {
+class TodoPage extends StatefulWidget {
   @override
-  _TodoScreenState createState() => _TodoScreenState();
+  _TodoPageState createState() => _TodoPageState();
 }
 
-class _TodoScreenState extends State<TodoScreen> {
+class _TodoPageState extends State<TodoPage> {
   var _todoTitleController = TextEditingController();
 
-  var _todoDescriptionController = TextEditingController();
+  var _todoContentController = TextEditingController();
 
   var _todoDateController = TextEditingController();
 
@@ -40,20 +41,20 @@ class _TodoScreenState extends State<TodoScreen> {
 
   DateTime _dateTime = DateTime.now();
 
-  _selectedTodoDate(BuildContext context) async {
-    var _pickedDate = await showDatePicker(
-        context: context,
-        initialDate: _dateTime,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100));
+  // _selectedTodoDate(BuildContext context) async {
+  //   var _pickedDate = await showDatePicker(
+  //       context: context,
+  //       initialDate: _dateTime,
+  //       firstDate: DateTime(2000),
+  //       lastDate: DateTime(2100));
 
-    if (_pickedDate != null) {
-      setState(() {
-        _dateTime = _pickedDate;
-        _todoDateController.text = DateFormat('yyyy-MM-dd').format(_pickedDate);
-      });
-    }
-  }
+  //   if (_pickedDate != null) {
+  //     setState(() {
+  //       _dateTime = _pickedDate;
+  //       _todoDateController.text = DateFormat('yyyy-MM-dd').format(_pickedDate);
+  //     });
+  //   }
+  // }
 
   _showSuccessSnackBar(message) {
     var _snackBar = SnackBar(content: message);
@@ -65,7 +66,7 @@ class _TodoScreenState extends State<TodoScreen> {
     return Scaffold(
       key: _globalKey,
       appBar: AppBar(
-        title: Text('Create Todo'),
+        title: Text('Doing Post'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -77,38 +78,39 @@ class _TodoScreenState extends State<TodoScreen> {
                   labelText: 'Title', hintText: 'Write Todo Title'),
             ),
             TextField(
-              controller: _todoDescriptionController,
+              controller: _todoContentController,
               decoration: InputDecoration(
-                  labelText: 'Description', hintText: 'Write Todo Description'),
+                  labelText: 'Content', hintText: 'Write Todo Content'),
             ),
-            TextField(
-              controller: _todoDateController,
-              decoration: InputDecoration(
-                labelText: 'Date',
-                hintText: 'Pick a Date',
-                prefixIcon: InkWell(
-                  onTap: () {
-                    _selectedTodoDate(context);
-                  },
-                  child: Icon(Icons.calendar_today),
-                ),
-              ),
-            ),
-            DropdownButtonFormField(
-              value: _selectedValue,
-              items: _categories,
-              hint: Text('Category'),
-              onChanged: (value) {
-                setState(() {
-                  _selectedValue = value;
-                });
-              },
-            ),
+            // TextField(
+            //   controller: _todoDateController,
+            //   decoration: InputDecoration(
+            //     labelText: 'Date',
+            //     hintText: 'Pick a Date',
+            //     prefixIcon: InkWell(
+            //       onTap: () {
+            //         // _selectedTodoDate(context);
+            //       },
+            //       child: Icon(Icons.calendar_today),
+            //     ),
+            //   ),
+            // ),
+            // DropdownButtonFormField(
+            //   value: _selectedValue,
+            //   items: _categories,
+            //   hint: Text('Category'),
+            //   onChanged: (value) {
+            //     setState(() {
+            //       _selectedValue = value;
+            //     });
+            //   },
+            // ),
             SizedBox(
               height: 20,
             ),
             RaisedButton(
-              // onPressed: onPress(),
+              onPressed: () => saveData(),
+              // onPressed: () {},
               color: Colors.blue,
               child: Text(
                 'Save',
@@ -121,16 +123,17 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
-  onPress() async {
+  //metodo postar dados!
+  saveData() async {
     var todoObject = Post();
 
     todoObject.title = _todoTitleController.text;
-    todoObject.content = _todoDescriptionController.text;
+    todoObject.content = _todoContentController.text;
 
     var _todoService = TodoService();
-    var result = await _todoService.saveTodo(todoObject);
+    var result = await _todoService.saveTodo(todoObject, context);
 
-    if (result > 0) {
+    if (result == true) {
       _showSuccessSnackBar(Text('Created'));
     }
 

@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_forumavaliativo_consumindoapi/src/models/todolist_model.dart';
+import 'package:flutter_forumavaliativo_consumindoapi/models/todolist_model.dart';
+import 'package:flutter_forumavaliativo_consumindoapi/services/todo_service.dart';
 import 'package:http/http.dart' as http;
+
+import 'todo_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,14 +13,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List list = [];
+  var _todoService = TodoService();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Forum Avaliativo"),
+          title: Text("Doing Get"),
           leading: Icon(
             Icons.code,
             size: 30,
@@ -26,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           padding: EdgeInsets.all(16.0),
           child: FutureBuilder(
-            future: getRequest(),
+            future: _todoService.readTodos(),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
@@ -50,26 +53,12 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => TodoPage())),
+          child: Icon(Icons.add),
+        ),
       ),
     );
-  }
-
-  //metodo get
-  Future<List<Post>> getRequest() async {
-    list = [];
-    String url = "https://adc-nodejs-api.herokuapp.com/list_posts";
-    final response = await http.get(url);
-    final responseData = json.decode(response.body);
-    for (var singleUser in responseData['post']) {
-      Post post = await Post(
-        sId: singleUser["_id"],
-        title: singleUser["title"],
-        content: singleUser["content"],
-        createdAt: singleUser["createdAt"],
-      );
-      //Adding user to the list.
-      list.add(post);
-    }
-    return list.cast();
   }
 }
