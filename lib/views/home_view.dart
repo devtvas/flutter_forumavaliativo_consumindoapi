@@ -18,9 +18,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   initState() {
     super.initState();
-
     _value = _homeController.getValue();
-    // _homeController.getValue();
   }
 
   @override
@@ -37,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
             IconButton(
               onPressed: () {
                 setState(() {
-                  _homeController = new HomeController();
+                  _value = _homeController.getValue();
                 });
               },
               icon: Icon(
