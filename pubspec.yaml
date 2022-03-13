@@ -37,6 +37,7 @@ dependencies:
 
   #news
   http: ^0.12.0+4
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

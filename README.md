@@ -1,6 +1,6 @@
-<h2>Resolucao do forum avaliativo, um desafio academico da universidade PUC-GO.</h2>
+<h1>Resolucao do forum avaliativo, um desafio academico da universidade PUC-GO.</h1>
 
-## Detalhe do desafio
+<h2>Detalhe do desafio</h2>
 
 Você deve desenvolver um aplicativo móvel usando Flutter 
 
@@ -17,16 +17,19 @@ O app deve ter:
 
 Você deve enviar o código fonte do seu app.
 
-## Detalhes da Api
+<h2>Detalhes da Api</h2>
 
 Api foi construida na linguagem nodejs e esta hospedada via Heroku.
+
 [GET] 
-```https://adc-nodejs-api.herokuapp.com/list_posts```
+```
+https://adc-nodejs-api.herokuapp.com/list_posts
+```
    
 [POST] 
-    ```
+```
 https://adc-nodejs-api.herokuapp.com/create_posts
-    ```
+```
 
 ## Aluno/Desenvolvedor
 

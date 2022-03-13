@@ -10,28 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List users = [];
-//Applying get request.
-
-  Future<List<Post>> getRequest() async {
-    //limpar lista antes de popular!
-    users = [];
-
-    //replace your restFull API here.
-    // String url = "https://jsonplaceholder.typicode.com/posts";
-    String url = "https://adc-nodejs-api.herokuapp.com/list_posts";
-    final response = await http.get(url);
-    final responseData = json.decode(response.body);
-    for (var singleUser in responseData['post']) {
-      Post user = await Post(
-        title: singleUser["title"],
-        content: singleUser["content"],
-      );
-      //Adding user to the list.
-      users.add(user);
-    }
-    return users.cast();
-  }
+  List list = [];
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +40,8 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (ctx, index) => Card(
                     child: ListTile(
                       title: Text(snapshot.data[index].title),
-                      subtitle: Text(snapshot.data[index].content),
+                      // subtitle: Text(snapshot.data[index].sId),
+                      subtitle: Text(snapshot.data[index].createdAt),
                       contentPadding: EdgeInsets.only(bottom: 20.0),
                     ),
                   ),
@@ -72,5 +52,24 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  //metodo get
+  Future<List<Post>> getRequest() async {
+    list = [];
+    String url = "https://adc-nodejs-api.herokuapp.com/list_posts";
+    final response = await http.get(url);
+    final responseData = json.decode(response.body);
+    for (var singleUser in responseData['post']) {
+      Post post = await Post(
+        sId: singleUser["_id"],
+        title: singleUser["title"],
+        content: singleUser["content"],
+        createdAt: singleUser["createdAt"],
+      );
+      //Adding user to the list.
+      list.add(post);
+    }
+    return list.cast();
   }
 }
