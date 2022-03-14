@@ -30,8 +30,11 @@ https://adc-nodejs-api.herokuapp.com/list_posts
 ```
 https://adc-nodejs-api.herokuapp.com/create_posts
 ```
+### Screenshots 
 
-<h2>Detalhes da Api</h2>
+<img src="assets/forum1.png" height="500em" /> <img src="forum2.png" height="500em" />
+
+<h2>Detalhes de Configuracao</h2>
 
   * Flutter: versao 2.2.3
   * Dart: versao 2.2.0
