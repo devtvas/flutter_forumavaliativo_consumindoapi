@@ -32,7 +32,7 @@ https://adc-nodejs-api.herokuapp.com/create_posts
 ```
 ### Screenshots 
 
-<img src="assets/forum1.png" height="500em" /> <img src="forum2.png" height="500em" />
+<img src="assets/forum1.png" height="500em" /> <img src="assets/forum2.png" height="500em" />
 
 <h2>Detalhes de Configuracao</h2>
 
