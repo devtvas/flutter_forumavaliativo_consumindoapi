@@ -91,7 +91,11 @@ class _HomeViewState extends State<HomeView> {
                             child: ListTile(
                               leading: CircleAvatar(child: Text(char)),
                               title: Text(
-                                  "Consumidor: ${snapshot.data[index].title}"),
+                                "Consumidor: ${snapshot.data[index].title}",
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               subtitle: Text(
                                   "Bebida favorita: ${snapshot.data[index].content}"),
                               contentPadding: EdgeInsets.only(bottom: 20.0),
